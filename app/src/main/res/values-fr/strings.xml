@@ -2,4 +2,14 @@
 <resources>
     <string name="hello_message">Bonjour!</string>
     <string name="ButtonText">I\’m a button</string>
+    <string name="GUI">Regardez mon GUI</string>
+    <string name="click_here">CLIQUEZ ICI</string>
+    <string name="check_box">Regarde ça!</string>
+    <string name="switch_on_off">Allumer / éteindre</string>
+    <string name="edit_bar">Écrivez ici</string>
+    <string name="on_message">" L'interrupteur est maintenant sur ON"</string>
+    <string name="off_message">L\'interrupteur est maintenant OFF</string>
+    <string name="toast_message">Voici plus d\'informations</string>
+    <string name="undo_message">défaire</string>
+
 </resources>
