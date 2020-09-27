@@ -15,6 +15,7 @@
         android:text="@string/GUI"
         android:textSize="30dp"/>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,5 +71,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/edit_bar" />
+
 </LinearLayout>
 
