@@ -11,4 +11,15 @@
     <string name="off_message">The switch is now OFF</string>
     <string name="toast_message">Here is more information</string>
     <string name="undo_message">Undo</string>
+    <string name="emailAdd">Enter your email address</string>
+    <string name="typeEmail">Type email here</string>
+    <string name="typePassword">Type your password</string>
+    <string name="login">Login</string>
+    <string name="yourProfile">Your profile</string>
+    <string name="yourName">Your name:</string>
+    <string name="editName">Enter your name</string>
+    <string name="yourEmail">Your email</string>
+    <string name="EnterYourEmail">Enter your email</string>
+    <string name="picture">Your picture</string>
+    <string name="pictureMessage">Click the button above to take picture</string>
 </resources>

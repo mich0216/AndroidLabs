@@ -11,13 +11,13 @@
         android:id="@+id/yourProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your profile" />
+        android:text="@string/yourProfile" />
 
     <TextView
         android:id="@+id/yourName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your name:" />
+        android:text="@string/yourName" />
 
     <EditText
         android:id="@+id/editName"
@@ -25,13 +25,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Enter your name" />
+        android:hint="@string/editName" />
 
     <TextView
         android:id="@+id/yourEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your email" />
+        android:text="@string/yourEmail" />
 
     <EditText
         android:id="@+id/emailEdit"
@@ -39,13 +39,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:hint="Enter your email" />
+        android:hint="@string/EnterYourEmail" />
 
     <TextView
         android:id="@+id/yourPicture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your picture" />
+        android:text="@string/picture" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -57,6 +57,6 @@
         android:id="@+id/takePictureText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click the button above to take picture" />
+        android:text="@string/pictureMessage" />
 
 </LinearLayout>

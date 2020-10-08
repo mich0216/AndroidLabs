@@ -11,5 +11,16 @@
     <string name="off_message">L\'interrupteur est maintenant OFF</string>
     <string name="toast_message">Voici plus d\'informations</string>
     <string name="undo_message">défaire</string>
+    <string name="emailAdd">" Entrez votre adresse e-mail"</string>
+    <string name="typeEmail">Saisissez votre e-mail ici</string>
+    <string name="typePassword">Tapez votre mot de passe</string>
+    <string name="login">S\'identifier</string>
+    <string name="yourProfile">Votre profil</string>
+    <string name="yourName">Votre nom:</string>
+    <string name="editName">" Entrez votre nom"</string>
+    <string name="yourEmail">" Votre email"</string>
+    <string name="EnterYourEmail">" Entrer votre Email"</string>
+    <string name="picture">" Ta photo"</string>
+    <string name="pictureMessage">Cliquez sur le bouton ci-dessus pour prendre une photo</string>
 
 </resources>
