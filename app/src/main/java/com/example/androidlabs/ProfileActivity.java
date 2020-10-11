@@ -34,6 +34,13 @@ public class ProfileActivity extends AppCompatActivity {
         mImageButton =(ImageButton)findViewById(R.id.imageButton);
         mImageButton.setOnClickListener(bt -> dispatchTakePictureIntent());
 
+
+        Button chatButton = findViewById(R.id.chatButton);
+        Intent goToChat = new Intent(this, ChatRoomActivity.class);
+
+        chatButton.setOnClickListener(click -> startActivity(goToChat));
+
+
     }
         private void dispatchTakePictureIntent() {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
