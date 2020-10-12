@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -17,52 +18,58 @@ import java.util.Arrays;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-
-    private ArrayList<String> elements = new ArrayList<>( Arrays.asList( "One", "Two" ) );
-    private MyListAdapter myAdapter;
+    private ArrayList<String> list = new ArrayList<>( );
+    private MessageAdaptor myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
 
-        Button sendButton = findViewById(R.id.sendButton);
-        sendButton.setOnClickListener(click -> {
-            elements.add("Hi");
-            myAdapter.notifyDataSetChanged();
+       /* Button sendButton = findViewById(R.id.sendButton);
+          sendButton.setOnClickListener(click -> {
+           list.add("hi");
+          myAdapter.notifyDataSetChanged();
         });
 
-        ListView myList = findViewById(R.id.theListView);
-        myList.setAdapter(myAdapter = new MyListAdapter());
-        myList.setOnItemClickListener((parent, view, pos, id) -> {
+      EditText chat = findViewById(R.id.chatEditText);*/
 
-            elements.remove(pos);
-            myAdapter.notifyDataSetChanged();
-        });
-    }
 
-    private class MyListAdapter extends BaseAdapter {
 
-        public int getCount() { return elements.size();}
+        ListView myList = findViewById(R.id.listView);
+        myList.setAdapter(myAdapter = new MessageAdaptor());
 
-        public Object getItem(int position) { return "This is row " + position; }
 
-        public long getItemId(int position) { return (long) position; }
+     }
 
-        public View getView(int position, View old, ViewGroup parent)
-        {
-            LayoutInflater inflater = getLayoutInflater();
+    private class MessageAdaptor extends BaseAdapter {
 
-            //make a new row:
-            View newView = inflater.inflate(R.layout.row_layout, parent, false);
+        @Override
+        public int getCount() {
+            return list.size();
+        }
 
-            //set what the text should be for this row:
-            TextView tView = newView.findViewById(R.id.textGoesHere);
-            tView.setText( getItem(position).toString() );
+        @Override
+        public String getItem(int position) {
+            return list.get(position);
+        }
 
-            //return it to be put in the table
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater =getLayoutInflater();
+            View newView = inflater.inflate(R.layout.sendlayout,parent, false);
+
+
             return newView;
         }
+
+        @Override
+        public long getItemId(int position) {
+            return (long) position;
+        }
     }
+
+
+
 
 }
