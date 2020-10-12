@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:text="SEND"/>
+        android:text="@string/sendButton"/>
 
     <EditText
         android:id="@+id/chatEditText"
@@ -26,7 +26,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/sendButton"
         android:layout_toLeftOf="@id/receiveButton"
-        android:hint="Type Here"/>
+        android:hint="@string/edit_bar"/>
 
     <Button
         android:id="@+id/receiveButton"
@@ -34,5 +34,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:text="RECEIVE"/>
+        android:text="@string/receiveButton"/>
 </RelativeLayout>

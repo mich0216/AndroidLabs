@@ -5,12 +5,12 @@
 
     <View
         android:id="@+id/receiveImage"
-        android:layout_alignParentleft="true"
+      android:layout_alignParentLeft="true"
         android:scaleType="centerInside"
         android:background="@drawable/row_receive"
         android:layout_gravity="fill"
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
     <TextView
         android:id="@+id/receiveMessage"
@@ -18,7 +18,7 @@
         android:layout_gravity="fill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="11dp"
+        android:paddingBottom="30dp"
         android:text=""/>
 
 </RelativeLayout>

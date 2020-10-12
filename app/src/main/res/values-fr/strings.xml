@@ -22,5 +22,14 @@
     <string name="EnterYourEmail">" Entrer votre Email"</string>
     <string name="picture">" Ta photo"</string>
     <string name="pictureMessage">Cliquez sur le bouton ci-dessus pour prendre une photo</string>
+    <string name="sendButton">" ENVOYER"</string>
+    <string name="receiveButton">" RECEVOIR"</string>
+    <string name="chatButton">" Aller au chat"</string>
+    <string name="app_name">Android Labs</string>
+    <string name="selectedrow">La ligne sélectionnée est</string>
+    <string name="thedatabaseid">" L'ID de la base de données est"</string>
+    <string name="no">Non</string>
+    <string name="yes">" Oui"</string>
+    <string name="wantdelete">" Voulez-vous le supprimer?"</string>
 
 </resources>

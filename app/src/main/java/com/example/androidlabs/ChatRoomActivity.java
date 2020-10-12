@@ -1,9 +1,8 @@
 package com.example.androidlabs;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,31 +12,69 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-    private ArrayList<String> list = new ArrayList<>( );
+    private ArrayList<Message> list = new ArrayList<>( );
     private MessageAdaptor myAdapter;
+    private EditText chat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_chat_room);
-
-       /* Button sendButton = findViewById(R.id.sendButton);
-          sendButton.setOnClickListener(click -> {
-           list.add("hi");
-          myAdapter.notifyDataSetChanged();
-        });
-
-      EditText chat = findViewById(R.id.chatEditText);*/
-
-
 
         ListView myList = findViewById(R.id.listView);
         myList.setAdapter(myAdapter = new MessageAdaptor());
+        myList.setOnItemLongClickListener((parent, view, position, id) -> {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(getResources().getString(R.string.wantdelete))
+
+            .setMessage(getResources().getString(R.string.selectedrow)+position+ "\n" +
+                    (getResources().getString(R.string.thedatabaseid)+id))
+
+            .setPositiveButton((getResources().getString(R.string.yes)), (click, arg)-> {
+                list.remove(position);
+                myAdapter.notifyDataSetChanged();
+            })
+             .setNegativeButton((getResources().getString(R.string.no)),(click, arg)->{})
+
+            .create().show();
+
+            return true;
+        });
+
+
+        chat = findViewById(R.id.chatEditText);
+
+       Button sendButton = findViewById(R.id.sendButton);
+          sendButton.setOnClickListener(click -> {
+              String sendText = chat.getText().toString();
+              Message sendMessage = new Message(sendText, false);
+              list.add(sendMessage);
+              chat.setText("");
+
+              myAdapter.notifyDataSetChanged();
+
+
+        });
+
+        Button receiveButton = findViewById(R.id.receiveButton);
+        receiveButton.setOnClickListener(click -> {
+            String receiveText = chat.getText().toString();
+            Message receiveMessage = new Message(receiveText, true);
+            list.add(receiveMessage);
+            chat.setText("");
+            myAdapter.notifyDataSetChanged();
+        });
+
+
+      EditText chat = findViewById(R.id.chatEditText);
+
+
 
 
      }
@@ -50,15 +87,26 @@ public class ChatRoomActivity extends AppCompatActivity {
         }
 
         @Override
-        public String getItem(int position) {
+        public Message getItem(int position) {
             return list.get(position);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater =getLayoutInflater();
-            View newView = inflater.inflate(R.layout.sendlayout,parent, false);
+            View newView = convertView;
 
+            if (list.get(position).getReceivedMessage()) {
+                newView =inflater.inflate(R.layout.receivelayout, parent, false);
+                TextView tv = newView.findViewById(R.id.receiveMessage);
+                tv.setText(getItem(position).getMessage());
+
+            }else{
+                newView =inflater.inflate(R.layout.sendlayout, parent, false);
+                TextView tv = newView.findViewById(R.id.sendMessage);
+                tv.setText(getItem(position).getMessage());
+
+            }
 
             return newView;
         }
