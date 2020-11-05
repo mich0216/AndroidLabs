@@ -3,10 +3,17 @@ package com.example.androidlabs;
 public class Message {
     private String message;
     private Boolean isReceivedMessage;
+    private long databaseId;
 
     public Message(String message, Boolean isReceivedMessage) {
-        this.message = message;
-        this.isReceivedMessage = isReceivedMessage;
+    this(message, isReceivedMessage,0);
+    }
+
+
+    public Message(String msg, Boolean isMsgReceived,long dId) {
+        message = msg;
+        isReceivedMessage= isMsgReceived;
+        databaseId=dId;
     }
 
     public void setMessage(String message) {
@@ -17,6 +24,8 @@ public class Message {
         isReceivedMessage = receivedMessage;
     }
 
+    public void setDatabaseId(Long databaseId) { this.databaseId = databaseId;
+    }
     public String getMessage() {
         return message;
     }
@@ -24,4 +33,6 @@ public class Message {
     public Boolean getReceivedMessage() {
         return isReceivedMessage;
     }
+
+    public Long getDatabaseId() { return databaseId; }
 }
