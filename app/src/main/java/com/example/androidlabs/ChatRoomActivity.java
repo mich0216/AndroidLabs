@@ -144,14 +144,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         }
         printCursor(results, db.getVersion());
     }
-     /*   private void TableStat() {
-         for (int x = 0; x < cursor.getColumnCount(); x++) {
-            Log.i("Cursor column name", cursor.getColumnName(x));
-            }//end for
-         Log.i(ACTIVITY_NAME, "Cursors column count =" + cursor.getColumnCount());
-         }//end TableStat
-
-      */
 
      private void printCursor(Cursor c, int version){
          Log.i("database version number", String.valueOf(version));
