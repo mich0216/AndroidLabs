@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,7 +130,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         int messageIndex = results.getColumnIndex(MyOpener.COL_MESSAGE);
         int isReceivedIndex = results.getColumnIndex(MyOpener.COL_ISRECEIVEDMESSAGE);
         int idColIndex = results.getColumnIndex(MyOpener.COL_ID);
-
         //iterate over the results, return true if there is a next item:
         while(results.moveToNext())
         {
@@ -142,44 +142,39 @@ public class ChatRoomActivity extends AppCompatActivity {
             //add the new Contact to the array list:
             list.add(new Message( message,isReceivedMessage,id));
         }
-
-        //At this point, the contactsList array has loaded every row from the cursor.
+        printCursor(results, db.getVersion());
     }
+     /*   private void TableStat() {
+         for (int x = 0; x < cursor.getColumnCount(); x++) {
+            Log.i("Cursor column name", cursor.getColumnName(x));
+            }//end for
+         Log.i(ACTIVITY_NAME, "Cursors column count =" + cursor.getColumnCount());
+         }//end TableStat
+
+      */
+
+     private void printCursor(Cursor c, int version){
+         Log.i("database version number", String.valueOf(version));
+         Log.i("Number of the columns ", String.valueOf(c.getColumnCount()));
+         for(String col : c.getColumnNames()){
+             Log.i("Name of the columns ", col);
+         }
+         Log.i("Number of rows ", String.valueOf(c.getCount()));
+
+         if (c.moveToFirst()) {
+             while (!c.isAfterLast()) {
+                 String id = c.getString(c.getColumnIndex("_id"));
+                 String message = c.getString(c.getColumnIndex("MESSAGE"));
+                 String isReceived = c.getString(c.getColumnIndex("isReceived"));
+                 Log.i("The row value is", id+" "+ message+" "+ isReceived);
+                 c.moveToNext();
+             }
+         }
+
+     }
 
 
-   /* protected void showContact(int position)
-    {
-        Contact selectedContact = contactsList.get(position);
 
-        View contact_view = getLayoutInflater().inflate(R.layout.contact_edit, null);
-        //get the TextViews
-        EditText rowName = contact_view.findViewById(R.id.row_name);
-        EditText rowEmail = contact_view.findViewById(R.id.row_email);
-        TextView rowId = contact_view.findViewById(R.id.row_id);
-
-        //set the fields for the alert dialog
-        rowName.setText(selectedContact.getName());
-        rowEmail.setText(selectedContact.getEmail());
-        rowId.setText("id:" + selectedContact.getId());
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("You clicked on item #" + position)
-                .setMessage("You can update the fields and then click update to save in the database")
-                .setView(contact_view) //add the 3 edit texts showing the contact information
-                .setPositiveButton("Update", (click, b) -> {
-                    selectedContact.update(rowName.getText().toString(), rowEmail.getText().toString());
-                    updateContact(selectedContact);
-                    myAdapter.notifyDataSetChanged(); //the email and name have changed so rebuild the list
-                })
-                .setNegativeButton("Delete", (click, b) -> {
-                    deleteContact(selectedContact); //remove the contact from database
-                    contactsList.remove(position); //remove the contact from contact list
-                    myAdapter.notifyDataSetChanged(); //there is one less item so update the list
-                })
-                .setNeutralButton("dismiss", (click, b) -> { })
-                .create().show();
-    }
-*/
     protected void updateContact(Message c)
     {
         //Create a ContentValues object to represent a database row:
@@ -195,6 +190,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     {
         db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + "= ?", new String[] {Long.toString(c.getDatabaseId())});
     }
+
 
 
 
