@@ -30,4 +30,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="wantdelete">Do you want to delete this?</string>
+    <string name="currentTemp">Current Temperature:</string>
+    <string name="minTemp">Minimum temperature:</string>
+    <string name="maxTemp">Maximum Temperature:</string>
+    <string name="uv">UV rating:</string>
+    <string name="weatherButton">Weather Forecast</string>
 </resources>

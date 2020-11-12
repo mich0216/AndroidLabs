@@ -31,5 +31,10 @@
     <string name="no">Non</string>
     <string name="yes">" Oui"</string>
     <string name="wantdelete">" Voulez-vous le supprimer?"</string>
+    <string name="currentTemp">Température actuelle:</string>
+    <string name="minTemp">" Température minimale:"</string>
+    <string name="maxTemp">" Température maximale:"</string>
+    <string name="uv">" Indice UV:"</string>
+    <string name="weatherButton">" Prévisions météorologiques"</string>
 
 </resources>
