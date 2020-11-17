@@ -2,8 +2,10 @@ package com.example.androidlabs;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +28,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     private MessageAdaptor myAdapter;
     private EditText chat;
     SQLiteDatabase db;
+    public static final String ITEM_SELECTED = "ITEM";
+    public static final String ITEM_POSITION = "POSITION";
+    public static final String ITEM_ID = "ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +39,24 @@ public class ChatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_room);
 
         ListView myList = findViewById(R.id.listView);
+        boolean isTablet = findViewById(R.id.fragmentLocation) != null; //check if the FrameLayout is loaded
+
 
         loadDataFromDatabase();
 
         myList.setAdapter(myAdapter = new MessageAdaptor());
+        myList.setOnItemLongClickListener((list, view, position, id) -> {
+            DetailsFragment newFragment =new DetailsFragment();
+
+            if(isTablet){
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().add(R.id.fragmentLocation,newFragment).commit();
+            }
+        });
 
 
 
-        myList.setOnItemLongClickListener((parent, view, position, id) -> {
+        /*myList.setOnItemLongClickListener((parent, view, position, id) -> {
             Message selectedMessage = list.get(position);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(getResources().getString(R.string.wantdelete))
@@ -58,7 +74,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             .create().show();
 
             return true;
-        });
+        });*/
 
 
         chat = findViewById(R.id.chatEditText);
