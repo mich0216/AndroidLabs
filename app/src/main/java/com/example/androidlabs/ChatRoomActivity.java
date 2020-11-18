@@ -1,6 +1,5 @@
 package com.example.androidlabs;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -13,10 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,34 +23,53 @@ import java.util.ArrayList;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-    private ArrayList<Message> list = new ArrayList<>( );
+    private ArrayList<Message> messageList = new ArrayList<>( );
     private MessageAdaptor myAdapter;
     private EditText chat;
     SQLiteDatabase db;
-    public static final String ITEM_SELECTED = "ITEM";
-    public static final String ITEM_POSITION = "POSITION";
-    public static final String ITEM_ID = "ID";
+    public static final String MESSAGE_TEXT = "MESSAGE_TEXT";
+    public static final String  MESSAGE_TYPE = "IS_RECEIVED_MESSAGE";
+    public static final String MESSAGE_ID = "ID";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_chat_room);
 
         ListView myList = findViewById(R.id.listView);
         boolean isTablet = findViewById(R.id.fragmentLocation) != null; //check if the FrameLayout is loaded
 
 
-        loadDataFromDatabase();
+        //loadDataFromDatabase();
 
-        myList.setAdapter(myAdapter = new MessageAdaptor());
-        myList.setOnItemLongClickListener((list, view, position, id) -> {
-            DetailsFragment newFragment =new DetailsFragment();
+        ArrayAdapter<Message> theAdapter = new ArrayAdapter<Message>(this, android.R.layout.simple_list_item_1, messageList);
+        myList.setAdapter(theAdapter);
 
-            if(isTablet){
+         // loadDataFromDatabase();
+
+        myList.setOnItemClickListener((list, view, position, id) -> {
+            //Create a bundle to pass data to the new fragment
+         Bundle dataToPass = new Bundle();
+         dataToPass.putString(MESSAGE_TEXT, (messageList.get(position).getMessage()));
+         dataToPass.putBoolean(MESSAGE_TYPE, messageList.get(position).getReceivedMessage());
+         dataToPass.putLong(MESSAGE_ID, id);
+
+
+            if(isTablet)
+            {
                 FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().add(R.id.fragmentLocation,newFragment).commit();
+                fm.beginTransaction().replace(R.id.fragmentLocation, new DetailsFragment()).commit();
             }
+
+            else
+            {
+                Intent nextActivity = new Intent(ChatRoomActivity.this, EmptyActivity.class);
+                //  nextActivity.putExtras(dataToPass); //send data to next activity
+                startActivity(nextActivity); //make the transition
+            }
+
+
         });
 
 
@@ -94,7 +112,7 @@ public class ChatRoomActivity extends AppCompatActivity {
               long newId = db.insert(MyOpener.TABLE_NAME, null, newRowValue);
 
               Message sendMessage = new Message(sendText, false, newId);
-              list.add(sendMessage);
+              messageList.add(sendMessage);
               chat.setText("");
 
               myAdapter.notifyDataSetChanged();
@@ -119,7 +137,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
             Message receiveMessage = new Message(receiveText, true,newId);
-            list.add(receiveMessage);
+            messageList.add(receiveMessage);
             chat.setText("");
             myAdapter.notifyDataSetChanged();
         });
@@ -156,7 +174,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             long id = results.getLong(idColIndex);
 
             //add the new Contact to the array list:
-            list.add(new Message( message,isReceivedMessage,id));
+            messageList.add(new Message( message,isReceivedMessage,id));
         }
         printCursor(results, db.getVersion());
     }
@@ -206,12 +224,12 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return list.size();
+            return messageList.size();
         }
 
         @Override
         public Message getItem(int position) {
-            return list.get(position);
+            return messageList.get(position);
         }
 
         @Override
@@ -219,7 +237,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             LayoutInflater inflater =getLayoutInflater();
             View newView = convertView;
 
-            if (list.get(position).getReceivedMessage()) {
+            if (messageList.get(position).getReceivedMessage()) {
                 newView =inflater.inflate(R.layout.receivelayout, parent, false);
                 TextView tv = newView.findViewById(R.id.receiveMessage);
                 tv.setText(getItem(position).getMessage());

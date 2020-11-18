@@ -16,7 +16,6 @@
         android:id="@+id/fragmentLocation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
         android:background="@color/colorAccent"
         android:layout_toRightOf="@id/listView"/>
 
@@ -25,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@id/listView"
         android:layout_alignParentBottom="true"
         android:text="@string/sendButton"/>
 
@@ -36,13 +34,14 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/sendButton"
         android:layout_toLeftOf="@id/receiveButton"
+        android:layout_alignRight="@id/listView"
         android:hint="@string/edit_bar"/>
 
     <Button
         android:id="@+id/receiveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+       android:layout_alignRight="@id/listView"
         android:text="@string/receiveButton"/>
 </RelativeLayout>
