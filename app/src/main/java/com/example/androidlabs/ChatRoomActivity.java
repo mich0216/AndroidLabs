@@ -1,5 +1,6 @@
 package com.example.androidlabs;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -41,12 +42,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         boolean isTablet = findViewById(R.id.fragmentLocation) != null; //check if the FrameLayout is loaded
 
 
-        //loadDataFromDatabase();
+        loadDataFromDatabase();
 
-        ArrayAdapter<Message> theAdapter = new ArrayAdapter<Message>(this, android.R.layout.simple_list_item_1, messageList);
-        myList.setAdapter(theAdapter);
+        //ArrayAdapter<Message> theAdapter = new ArrayAdapter<Message>(this, android.R.layout.simple_list_item_1, messageList);
+        myList.setAdapter(myAdapter = new MessageAdaptor());
 
-         // loadDataFromDatabase();
+        //myList.setAdapter(theAdapter);
+
 
         myList.setOnItemClickListener((list, view, position, id) -> {
             //Create a bundle to pass data to the new fragment
@@ -58,24 +60,25 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             if(isTablet)
             {
-                FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.fragmentLocation, new DetailsFragment()).commit();
+                DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+                dFragment.setArguments( dataToPass ); //pass it a bundle for information
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
             }
 
             else
             {
                 Intent nextActivity = new Intent(ChatRoomActivity.this, EmptyActivity.class);
-                //  nextActivity.putExtras(dataToPass); //send data to next activity
+                nextActivity.putExtras(dataToPass); //send data to next activity
                 startActivity(nextActivity); //make the transition
             }
-
-
         });
 
+        myList.setOnItemLongClickListener((parent, view, position, id) -> {
+            Message selectedMessage = messageList.get(position);
 
-
-        /*myList.setOnItemLongClickListener((parent, view, position, id) -> {
-            Message selectedMessage = list.get(position);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(getResources().getString(R.string.wantdelete))
 
@@ -84,7 +87,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             .setPositiveButton((getResources().getString(R.string.yes)), (click, arg)-> {
                 deleteMessage(selectedMessage);
-                list.remove(position);
+                messageList.remove(position);
                 myAdapter.notifyDataSetChanged();
             })
              .setNegativeButton((getResources().getString(R.string.no)),(click, arg)->{})
@@ -92,7 +95,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             .create().show();
 
             return true;
-        });*/
+        });
 
 
         chat = findViewById(R.id.chatEditText);

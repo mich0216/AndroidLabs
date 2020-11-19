@@ -1,7 +1,9 @@
 package com.example.androidlabs;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -17,21 +19,44 @@ import android.widget.TextView;
  */
 public class DetailsFragment extends Fragment {
 
+    private Bundle dataFromActivity;
+    private long id;
+    private AppCompatActivity parentActivity;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        dataFromActivity = getArguments();
+        id = dataFromActivity.getLong(ChatRoomActivity.MESSAGE_ID );
+
         // Inflate the layout for this fragment
 
         View result =  inflater.inflate(R.layout.fragment_details, container, false);
 
         //show the message
         TextView message = (TextView)result.findViewById(R.id.message);
-        message.setText(dataFromActivity.getString(FragmentExample.ITEM_SELECTED));
+        message.setText(dataFromActivity.getString(ChatRoomActivity.MESSAGE_TEXT));
 
         //show the id:
         TextView idView = (TextView)result.findViewById(R.id.idEqual);
         idView.setText("ID=" + id);
 
-        // get the delete button, and add a click listener:
-        Button finishButton = (Button)result.findViewById(R.id.checkBox);    }
+      // get the Hide button, and add a click listener:
+        Button hideButton = (Button)result.findViewById(R.id.hideButton);
+        hideButton.setOnClickListener( Clk  ->{
+            //Tell the parent activity to remove
+            parentActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+        });
+
+        return result;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        //context will either be FragmentExample for a tablet, or EmptyActivity for phone
+        parentActivity = (AppCompatActivity)context;
+    }
 }

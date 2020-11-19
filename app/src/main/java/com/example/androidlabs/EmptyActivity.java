@@ -12,8 +12,14 @@ public class EmptyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empty);
 
-        // this is copied directly from the ChatRoomActivity.java line 52-53
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.fragmentLocation, new DetailsFragment()).commit();
+        Bundle dataToPass = getIntent().getExtras(); //get the data that was passed from FragmentExample
+
+        // this is copied directly from the ChatRoomActivity.java line 62-67
+        DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+        dFragment.setArguments( dataToPass ); //pass it a bundle for information
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
+                .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
     }
 }

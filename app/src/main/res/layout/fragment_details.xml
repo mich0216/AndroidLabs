@@ -28,7 +28,7 @@
         android:text="is a Send Message" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/hideButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
