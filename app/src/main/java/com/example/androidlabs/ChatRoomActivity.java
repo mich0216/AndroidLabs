@@ -90,8 +90,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                 deleteMessage(selectedMessage);
                 messageList.remove(position);
                 myAdapter.notifyDataSetChanged();
-
-                getSupportFragmentManager().beginTransaction().remove(dFragment).commit();
+                if(dFragment!= null)
+                    getSupportFragmentManager().beginTransaction().remove(dFragment).commit();
 
             })
              .setNegativeButton((getResources().getString(R.string.no)),(click, arg)->{})
