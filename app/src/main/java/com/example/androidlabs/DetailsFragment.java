@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 /**
@@ -41,6 +42,14 @@ public class DetailsFragment extends Fragment {
         //show the id:
         TextView idView = (TextView)result.findViewById(R.id.idEqual);
         idView.setText("ID=" + id);
+
+        CheckBox ck = (CheckBox) result.findViewById(R.id.checkBox);
+        if (dataFromActivity.getBoolean(ChatRoomActivity.MESSAGE_TYPE)) {
+            ck.setChecked(false);
+        }
+        else {
+            ck.setChecked(true);
+        }
 
       // get the Hide button, and add a click listener:
         Button hideButton = (Button)result.findViewById(R.id.hideButton);

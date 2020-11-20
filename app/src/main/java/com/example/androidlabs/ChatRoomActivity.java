@@ -28,6 +28,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private MessageAdaptor myAdapter;
     private EditText chat;
     SQLiteDatabase db;
+    DetailsFragment dFragment;
     public static final String MESSAGE_TEXT = "MESSAGE_TEXT";
     public static final String  MESSAGE_TYPE = "IS_RECEIVED_MESSAGE";
     public static final String MESSAGE_ID = "ID";
@@ -60,7 +61,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             if(isTablet)
             {
-                DetailsFragment dFragment = new DetailsFragment(); //add a DetailFragment
+                dFragment = new DetailsFragment(); //add a DetailFragment
                 dFragment.setArguments( dataToPass ); //pass it a bundle for information
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -89,6 +90,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                 deleteMessage(selectedMessage);
                 messageList.remove(position);
                 myAdapter.notifyDataSetChanged();
+
+                getSupportFragmentManager().beginTransaction().remove(dFragment).commit();
+
             })
              .setNegativeButton((getResources().getString(R.string.no)),(click, arg)->{})
 
