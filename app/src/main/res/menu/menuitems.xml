@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item android:id="@+id/homeIcon"
+        android:orderInCategory="100"
+        android:icon="@drawable/home_icon"
+        android:title="Home"
+        app:showAsAction="always"/>  <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+
+    <item android:id="@+id/musicIcon"
+        android:orderInCategory="200"
+        android:icon="@drawable/music_icon"
+        app:showAsAction="always"
+        android:title="Music"/>    <!-- This uses showAsAction=always, so look at icon= parameter -->
+
+
+    <item android:id="@+id/searchIcon"
+        android:icon="@drawable/search_icon"
+        android:title="Search"
+        app:showAsAction="always"
+        android:orderInCategory="300"/> <!-- This uses showAsAction=never, so look at title= parameter -->
+
+    <item android:id="@+id/weatherIcon"
+        android:icon="@drawable/weather_icon"
+        android:orderInCategory="400"
+        app:showAsAction="never"
+        android:title="Weather"/>
+</menu>
