@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Button toolbarButton =findViewById(R.id.toolbarButton);
         Intent goToTestToolbar = new Intent(this, TestToolbar.class);
-        toolbarButton.setOnClickListener(click -> startActivityForResult(goToTestToolbar, 123));;
+        toolbarButton.setOnClickListener(click -> startActivityForResult(goToTestToolbar, 499));;
 
     }
 
@@ -67,6 +67,10 @@ public class ProfileActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             mImageButton.setImageBitmap(imageBitmap);
+        }
+
+        if (requestCode == 499 && resultCode == 500){
+            finish();
         }
     }
 
