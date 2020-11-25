@@ -69,7 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
             mImageButton.setImageBitmap(imageBitmap);
         }
 
-        if (requestCode == 499 && resultCode == 500){
+        if (resultCode == 500){
             finish();
         }
     }
