@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Button toolbarButton =findViewById(R.id.toolbarButton);
         Intent goToTestToolbar = new Intent(this, TestToolbar.class);
-        toolbarButton.setOnClickListener(click -> startActivityForResult(goToTestToolbar, 499));;
+        toolbarButton.setOnClickListener(click -> startActivityForResult(goToTestToolbar, 500));;
 
     }
 
